@@ -11,17 +11,17 @@ import "../styles/styles.css"
 import "../styles/media.css" 
 import { Chefs } from './pages/chefs';
 // import { Effect } from './pages/effect';
-import { Formula } from './pages/formula';
+// import { Formula } from './pages/formula';
 
 const Layout = () => {
     return (
         <BrowserRouter>
             <NavBar />
             <Routes>
-                {/* <Route path='/' Component={Home} /> */}
+                <Route path='/' Component={Home} />
                 <Route path='/chefs' Component={Chefs} />
                 {/* <Route path='/effect' Component={Effect} /> */}
-                <Route path='/' Component={Formula} />
+                {/* <Route path='/' Component={Formula} /> */}
             </Routes>
             <Footer />
         </BrowserRouter>

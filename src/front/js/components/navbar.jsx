@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import fondo from "../../img/LOGO_COCINA_EXTREMA.png";
 
-import { Login } from '../pages/login';
-import { Register } from '../pages/register';
-import { Menu } from './menu';
+// import { Login } from '../pages/login';
+// import { Register } from '../pages/register';
+// import { Menu } from './menu';
 
 export const NavBar = () => {
 
-    const [showLogin, setShowLogin] = useState(false);
-    const [showRegister, setShowRegister] = useState(false);
+    // const [showLogin, setShowLogin] = useState(false);
+    // const [showRegister, setShowRegister] = useState(false);
 
-    const toggleLogin = () => {
-        setShowLogin(!showLogin);
-    };
-    const toggleRegister = () => {
-        setShowRegister(!showRegister);
-    };
+    // const toggleLogin = () => {
+    //     setShowLogin(!showLogin);
+    // };
+    // const toggleRegister = () => {
+    //     setShowRegister(!showRegister);
+    // };
 
     return (
         <>
