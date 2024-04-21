@@ -1,28 +1,42 @@
 from flask import Flask
-from routes import routes
-from models import db
-
-# No necesitas importar app y db desde api.app, ya que ya están definidos aquí
-# from api.app import app, db
-
+# from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from admin import admin
+from flask_cors import CORS
+from routes import routes
+from models import db, User, Chef
 
-def create_app():
-    app = Flask(__name__)
-    app.config.from_pyfile('config.py')  # Carga la configuración desde config.py
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
-    # Registra las rutas
-    app.register_blueprint(routes)
+cloudinary.config( 
+    cloud_name = "dztgp8g6w", 
+    api_key = "158344581497744", 
+    api_secret = "a5xb9RBMOpovJEOOranrRYLWAYw" 
+)
 
-    # Inicializa la base de datos
-    db.init_app(app)
+# Crear una instancia de la aplicación Flask
+app = Flask(__name__)
 
-    return app
+# Configurar CORS para permitir solicitudes desde http://localhost:5173
+CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
 
+# Cargar la configuración desde config.py
+app.config.from_pyfile('config.py')
+
+# Configurar la base de datos SQLAlchemy
+db.init_app(app)
+
+# Inicializar Flask-Migrate
+migrate = Migrate(app, db)
+
+# Registrar las rutas en la aplicación
+app.register_blueprint(routes)
+
+# Inicializar la interfaz de administración
+admin.init_app(app)
+
+# Comprobación para ejecutar el servidor de desarrollo
 if __name__ == "__main__":
-    app = create_app()
-
-    # Agrega la vista de la interfaz de administración a la aplicación Flask
-    admin.init_app(app)
-
     app.run(debug=True)
