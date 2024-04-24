@@ -246,9 +246,44 @@ footer .social-links img {
 button.circle {
   color: transparent;
 } 
+
+
 .card {
-    width: 18rem
+    margin-top: 5rem;
+    width: 18rem;
+    color: black;
 }
 
+.card-title , .card-footer , .card-button {
+    text-align: center;
+}
+.card-button {
+    margin-bottom: 1rem;
+}
+.btn {
+    background-color: var(--tertiary-bg-color);
+    border: none;
+}
+.btn:hover{
+    background-color: var(--tertiary-bg-color);
+}
+.row {
+    margin-bottom: 5rem;
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
 
+.col {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+hr {
+    width: 75%;
+    margin: auto;
+    margin-bottom: 1rem;
+}
 

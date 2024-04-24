@@ -1,5 +1,3 @@
-import React from "react";
-
 import Plaqueta from "../../img/ROJO_VIDEO.png"
 import Sombrero from "../../img/ROJO_sombrero-de-cocinero.png"
 import Bandeja from "../../img/ROJO_bandeja.png"

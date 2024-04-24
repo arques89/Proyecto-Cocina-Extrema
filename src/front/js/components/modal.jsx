@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 export const Modal = ({ onClose , chefName}) => {
 
     Modal.propTypes = {
-        onClose: PropTypes.any.isRequired,
-        chefName: PropTypes.string.isRequired,
+        onClose: PropTypes.any,
+        chefName: PropTypes.string,
       };
 
     return (

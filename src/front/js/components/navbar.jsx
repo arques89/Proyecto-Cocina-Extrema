@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+// import { useState } from 'react';
 import fondo from "../../img/LOGO_COCINA_EXTREMA.png";
 
 // import { Login } from '../pages/login';
