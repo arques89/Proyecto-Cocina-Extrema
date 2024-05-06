@@ -1,18 +1,32 @@
-from flask import Flask, request, jsonify, url_for, Blueprint, current_app
+from flask import Flask, request, jsonify, url_for, Blueprint, current_app, session
 from models import db, User, Chef
 from werkzeug.exceptions import HTTPException
-
-import  bcrypt
+from flask_bcrypt import Bcrypt
+from flask_session import Session
+import bcrypt
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
+bcrypt = Bcrypt()
 
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
 api = Blueprint('api', __name__)
+
+
+from datetime import timedelta
+delta = timedelta(
+    days=50,
+    seconds=27,
+    microseconds=10,
+    milliseconds=29000,
+    minutes=5,
+    hours=8,
+    weeks=2
+)
 
 cloudinary.config(
   cloud_name = "dztgp8g6w",
@@ -30,24 +44,30 @@ class APIException(HTTPException):
 
 # Login
 
-# @api.route('/login' , method=['POST'])
-# def login():
-#     # Obtener los datos del formulario si están presentes
-#     data = request.json
-#     if not data:
-#         email = request.form['email']
-#         password = request.form['password']
 
-#     # Verificar si 'username' y 'email' están presentes
-#     if 'email' != email:
-#         return jsonify({'error': 'correo electrónico no encontrado.'}), 400
-#     if 'email' != password:
-#         return jsonify({'error': 'Contraseña erronea.'}), 400
-#     # Crear un nuevo objeto de usuario
-#     nuevo_usuario = User(email=data['email'], password=data['password'])
+@api.route('/login', methods=['POST'])
+def login_user():
+    email = request.json["email"]
+    password = request.json["password"]
     
-#     db.session(nuevo_usuario)
-     
+    user = User.query.filter_by(email=email).first()
+    
+    if user is None:
+        return jsonify({"error": "Unauthorized, not user"}), 401
+
+    if not bcrypt.check_password_hash(user.password, password):
+        return jsonify({"error": "Unauthorized, password error"}), 401
+    
+    data = {
+    "id": user.id,
+    'email': user.email,
+    'name': user.name,
+    'surname': user.surname
+    }
+        
+    token = create_access_token(identity=data, expires_delta=timedelta(minutes=1))
+    return jsonify(token), 200
+
 
 ##----------------------------------------------------------------------------##
 ##---------------------------------TABLE USER---------------------------------##
@@ -67,25 +87,30 @@ def list_user():
 
 #__________________________________CREATE USER__________________________________#
 @api.route('/register', methods=['POST'])
-def crear_usuario():
-    # Obtener los datos del formulario si están presentes
-    body = request.get_json()
-    user_check_email = User.query.filter_by(email=body['email']).first()
-    # Verificar si 'username' y 'email' están presentes
-    if user_check_email != None:
-        return jsonify("Ya existe este email"), 402
+def register_user():
+    email = request.json["email"]
+    password = request.json["password"]
+    body = request.json
+    user_exists = User.query.filter_by(email=email).first() is not None
     
-    user_password = request.json.get('password')
-    hashed = bcrypt.hashpw(user_password.encode('utf-8'), bcrypt.gensalt())
-    # Crear un nuevo objeto de usuario
-    nuevo_usuario = User(name=body['name'], surname=body['surname'], email=body['email'], password=hashed.decode('utf-8'), is_active=True, is_admin=False )
-
-    # Agregar el nuevo usuario a la sesión y guardar en la base de datos
-    db.session.add(nuevo_usuario)
+    if user_exists:
+        return jsonify({"error" : "User already exists"}), 409
+    
+    hashed_password = bcrypt.generate_password_hash(password)
+    print(hashed_password)
+    print(User(password))
+    new_user = User(email=email , password=hashed_password , name=body['name'], surname=body['surname'], is_active=True, is_admin=False)
+    db.session.add(new_user)
     db.session.commit()
-
-    return jsonify({'message': 'Usuario creado correctamente.'}), 201
-
+    
+    return jsonify({
+        "id" : new_user.id,
+        "email" : new_user.email,
+        'name': new_user.name,
+        'surname': new_user.surname
+        
+    })
+    
 #__________________________________UPDATE USER__________________________________#
 @api.route('/users/<int:id>' , methods=['PUT'])
 def update_user(id):

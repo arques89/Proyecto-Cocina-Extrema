@@ -10,11 +10,12 @@ flask-sqlalchemy = "*"
 flask-cors = "*"
 cloudinary = "*"
 flask-admin = "*"
-bcrypt = "*"
 flask-jwt-extended = "*"
 flask-mail = "*"
 alembic = "*"
 flask-migrate = "*"
+flask-bcrypt = "*"
+flask-session = "*"
 
 [dev-packages]
 

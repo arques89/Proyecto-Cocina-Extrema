@@ -1,7 +1,12 @@
-import config from "../../config";
+import config from "../../../config";
 import bcrypt from "bcryptjs";
+import toast, { Toaster } from 'react-hot-toast';
+
+import { inputRegister } from './mocks' 
 
 export const Register = () => {
+  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -24,14 +29,14 @@ export const Register = () => {
     }
 
     // Hashear la contraseña antes de enviarla al servidor
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // const hashedPassword = await bcrypt.hash(password, 10);
 
     // Crear el objeto formData con la contraseña hasheada
     const formData = {
       name: name,
       surname: surname,
       email: email,
-      password: hashedPassword
+      password: password
     };
 
     try {
@@ -44,35 +49,45 @@ export const Register = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Error al enviar el formulario");
-      }
+        const responseData = await response.json();
+        const notify = () => toast.error(`${responseData.message}`);
 
+        throw new Error(notify());
+      }
+      
       console.log("Formulario enviado correctamente");
       // Aquí podrías hacer algo con la respuesta del servidor, como redirigir al usuario a otra página.
     } catch (error) {
-      console.error("Error al enviar el formulario:", error);
       return; // Retorna temprano en caso de error
     }
   };
 
+  const renderInputRegister = () => {
+    return inputRegister.map(item => (
+      <div key={item.id}>
+      <label htmlFor={item.htmlFor}>{item.label}</label><br />
+      <input type={item.type} name={item.name} placeholder={item.placeholder} required />
+      <br />
+      </div>
+    ))
+  }
+
   return (
-    <div>
-      <h2>Registro</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Nombre</label>
-        <input type="text" name="name" id="name" required />
-        <br />
-        <label htmlFor="surname">Apellido</label>
-        <input type="text" name="surname" id="surname" required />
-        <br />
-        <label htmlFor="email">Correo</label>
-        <input type="email" name="email" id="email" required />
-        <br />
-        <label htmlFor="password">Contraseña</label>
-        <input type="password" name="password" id="password" required />
-        <br />
-        <button type="submit">Registrarse</button>
-      </form>
+    <div className="container" id="register-container">
+        <div className="content mt-5">
+            <div className="register">
+                <h2>Registro</h2>
+                <form onSubmit={handleSubmit}>
+                    {renderInputRegister()}
+                    <br />
+                    <button type="submit">Registrarse</button>
+                </form>
+            </div>
+            <Toaster
+            position="top-center"
+            reverseOrder={false}
+            />
+        </div>
     </div>
   );
 };

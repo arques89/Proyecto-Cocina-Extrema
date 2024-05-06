@@ -11,10 +11,11 @@ import "../styles/styles.css"
 import "../styles/media.css" 
 import { Chefs } from './pages/chefs';
 // import { Effect } from './pages/effect';
-import { Formula } from './pages/formula';
+import { upFile } from './pages/upFile/upFile';
 import { Concursantes } from './pages/concursantes';
-import { Login } from './pages/login';
-import { Register } from './pages/register';
+import { Login } from './pages/login/login';
+import { Register } from './pages/register/register';
+import { Dashboard } from './pages/dashboard/index';
 
 const Layout = () => {
     return (
@@ -26,8 +27,9 @@ const Layout = () => {
                 <Route path='/register' Component={Register} />
                 <Route path='/chefs' Component={Chefs} />
                 <Route path='/concursantes' Component={Concursantes} />
+                <Route path='/dashboard' Component={Dashboard} />
                 {/* <Route path='/effect' Component={Effect} /> */}
-                <Route path='/form' Component={Formula} />
+                <Route path='/form' Component={upFile} />
             </Routes>
             <Footer />
         </BrowserRouter>

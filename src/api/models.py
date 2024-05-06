@@ -4,6 +4,7 @@ db = SQLAlchemy()
 
 
 class User(db.Model):
+    __tablename__="user"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(80), nullable=False)
     surname = db.Column(db.String(80), nullable=False)
@@ -13,13 +14,13 @@ class User(db.Model):
     is_admin = db.Column(db.Boolean(), default=False)
     
     def __repr__(self):
-        return '<User %r>' % self.username
+        return '<User %r>' % self.email
 
     def serialize(self):
         return {
             'id': self.id,
-            'name': self.username,
-            'surname': self.username,
+            'name': self.name,
+            'surname': self.surname,
             'email': self.email
         }
             # do not serialize the password, its a security breach

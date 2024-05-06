@@ -27,7 +27,7 @@ const Home = () => {
             
             {/* <!-- Contenido principal --> */}
 
-            <div className="container">
+            <div className="container" id="home-container">
                 <div id="texto-img" className="row mb-5 icons">
                     {/* <!-- Primera columna de imagen --> */}
                     <div className="col text-center video-icon">
@@ -69,7 +69,7 @@ const Home = () => {
 
             </div>
 
-            <div className="container">
+            <div className="container" id="home-container">
                 <div className="row mt-5">
                     
                     <Card 

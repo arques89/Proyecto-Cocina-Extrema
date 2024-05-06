@@ -6,6 +6,7 @@ from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_migrate import Migrate
 from config import Config
+from flask_jwt_extended import JWTManager
 
 migrate = Migrate()
 
@@ -21,6 +22,8 @@ def create_app():
     # Crear una instancia de la aplicación Flask
     app = Flask(__name__)
     
+    app.config["JWT_SECRET_KEY"] = "super-secret"
+    jwt = JWTManager(app)
     # Cargar la configuración desde config.py
     app.config.from_object(Config)
     

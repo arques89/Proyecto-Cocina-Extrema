@@ -66,11 +66,15 @@ body {
 }
 
 /* Main */
-.container {
+#home-container {
     color: var(--secondary-color);
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 15px;
+    padding-left: 15px;
 }
 
-.container .icons p {
+#home-container .icons p {
     margin-top: 1rem !important;
 }
 
@@ -87,13 +91,6 @@ body {
 .tray-icon img {
     width: 150px;
     height: 100px;
-}
-
-.container {
-    margin-right: auto;
-    margin-left: auto;
-    padding-right: 15px;
-    padding-left: 15px;
 }
 
 .contenedor {
@@ -188,6 +185,10 @@ body {
 }
 
 /* Footer */
+footer {
+    bottom: 0%;
+}
+
 footer .main-logo {
     width: 15rem;
 }
@@ -201,7 +202,7 @@ footer .main-logo {
     display: flex;
 }
 
-.flex-container .container {
+.flex-container #home-container {
     display: flex;
 }
 
@@ -287,3 +288,94 @@ hr {
     margin-bottom: 1rem;
 }
 
+
+/* Pagina Registro */
+#register-container {
+    background-color: var(--tertiary-bg-color);
+    margin-top: 12%;
+    margin-bottom: 5%;
+}
+.register {
+    text-align: center;
+    background-color: var(--tertiary-bg-color);
+    height: 100%;
+}
+form {
+    display: flexbox;
+}
+/* Pagina Login */
+#login-container {
+    background-color: var(--tertiary-bg-color);
+    margin-top: 12%;
+    margin-bottom: 5%;
+}
+.login {
+    text-align: center;
+    background-color: var(--tertiary-bg-color);
+    height: 100%;
+}
+form {
+    display: flexbox;
+}
+/* Pagina upFile */
+#upFile-container {
+    background-color: var(--tertiary-bg-color);
+    margin-top: 12%;
+    margin-bottom: 5%;
+}
+.upFile {
+    text-align: center;
+    background-color: var(--tertiary-bg-color);
+    height: 100%;
+}
+form {
+    display: flexbox;
+}
+
+
+
+
+
+/* dashboard */
+
+
+/* Estilo para centrar el contenido */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .card {
+    max-width: 500px;
+    margin-top: 20px;
+  }
+  
+  /* Estilo para la imagen del post */
+  .card-img-top {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Estilo para los botones de acción */
+  .card-body button {
+    margin-right: 10px;
+  }
+  
+  /* Estilo para el formulario de comentarios */
+  .card-body form {
+    margin-top: 10px;
+  }
+  
+  /* Estilo para los comentarios */
+  .list-group-item {
+    border: none;
+    background-color: transparent;
+  }
+  
+  /* Estilo para los comentarios */
+  .list-group-item:not(:last-child) {
+    margin-bottom: 5px;
+  }
+  
