@@ -99,3 +99,19 @@ body {
   
   /* Footer (Eliminado) */
   
+  .izquierda {
+  background-color: aqua;
+  width: 200px;
+  height: 100px;
+  }
+  .derecha {
+    background-color: #4CAF50;
+    width: 500px;
+    height: 500px;
+  }
+  #dashboard  {
+    background-color: #c1beb8;
+  }
+  h4 {
+    margin: 30px;
+  }

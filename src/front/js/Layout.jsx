@@ -17,6 +17,9 @@ import { Login } from './pages/login/login';
 import { Register } from './pages/register/register';
 import { Dashboard } from './pages/dashboard/index';
 
+import injectContext from './store/appContext';
+import AvatarList from './pages/avatarList';
+
 const Layout = () => {
     return (
         <BrowserRouter>
@@ -28,6 +31,7 @@ const Layout = () => {
                 <Route path='/chefs' Component={Chefs} />
                 <Route path='/concursantes' Component={Concursantes} />
                 <Route path='/dashboard' Component={Dashboard} />
+                <Route path='/avatar' Component={AvatarList} />
                 {/* <Route path='/effect' Component={Effect} /> */}
                 <Route path='/form' Component={upFile} />
             </Routes>
@@ -36,4 +40,4 @@ const Layout = () => {
     )
 }
 
-export default Layout;
+export default injectContext(Layout);
