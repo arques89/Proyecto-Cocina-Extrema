@@ -66,15 +66,11 @@ body {
 }
 
 /* Main */
-#home-container {
+.container {
     color: var(--secondary-color);
-    margin-right: auto;
-    margin-left: auto;
-    padding-right: 15px;
-    padding-left: 15px;
 }
 
-#home-container .icons p {
+.container .icons p {
     margin-top: 1rem !important;
 }
 
@@ -91,6 +87,13 @@ body {
 .tray-icon img {
     width: 150px;
     height: 100px;
+}
+
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 15px;
+    padding-left: 15px;
 }
 
 .contenedor {
@@ -185,10 +188,6 @@ body {
 }
 
 /* Footer */
-footer {
-    bottom: 0%;
-}
-
 footer .main-logo {
     width: 15rem;
 }
@@ -202,7 +201,7 @@ footer .main-logo {
     display: flex;
 }
 
-.flex-container #home-container {
+.flex-container .container {
     display: flex;
 }
 
@@ -211,41 +210,32 @@ footer .social-links img {
     height: 3rem;
 }
 
-.avatar {
-    border-radius: 50%;
-    /* background-image: url('avatar.png'); */
-    background-position: center;
-    background-size: cover;
-    height: 70px;
-    width: 70px;
-}
-
 
 
 .circle {
-	line-height: 0;		/* remove line-height */ 
+    line-height: 0;		/* remove line-height */ 
 	display: inline-block;	/* circle wraps image */
 	margin: 0px;
-  border: 4px solid rgba(200,200,200,0.4);
+    border: 4px solid rgba(200,200,200,0.4);
 	border-radius: 50%;	/* relative value */
 	/*box-shadow: 0px 0px 5px rgba(0,0,0,0.4);*/
 	transition: linear 0.2s;
-  height: 80px;
-  width: 80px;
+    height: 80px;
+    width: 80px;
 }
 .circle img {
     margin-left:-5px;
 	border-radius: 50%;	/* relative value for
-				   adjustable image size */
-                   
+    adjustable image size */
+    
 }
 .circle:hover {
-	transition: ease-out 0.2s;
-  border: 4px solid rgba(0,0,0,0.2);
-  -webkit-transition: ease-out 0.2s;
+    transition: ease-out 0.2s;
+    border: 4px solid rgba(0,0,0,0.2);
+    -webkit-transition: ease-out 0.2s;
 }
 button.circle {
-  color: transparent;
+    color: transparent;
 } 
 
 
@@ -288,94 +278,83 @@ hr {
     margin-bottom: 1rem;
 }
 
+.login-container {
+    display: flex;
+}
+.register-container {
+    display: flex;
+}
 
-/* Pagina Registro */
-#register-container {
-    background-color: var(--tertiary-bg-color);
-    margin-top: 12%;
-    margin-bottom: 5%;
+.video-login {
+    flex: 1; /* El video ocupa la mitad izquierda de la pantalla */
 }
-.register {
+
+.content {
+    flex: 1; /* El formulario ocupa la mitad derecha de la pantalla */
+    
+}
+
+.video{
+    object-fit: cover;
+    z-index: -1;
+    width: 50vw;
+    height: 89vh;
+    top: 0;
+    left: 0;
+    
+}
+#menu-avatar {
+    color: #ffffff;
+}
+
+
+
+.login-form {
+    width: 100%;
+    height: 300px;
+    background-color: #ce4f20;
+    color: #ffffff;
+    margin: auto;
     text-align: center;
-    background-color: var(--tertiary-bg-color);
-    height: 100%;
-}
-form {
-    display: flexbox;
-}
-/* Pagina Login */
-#login-container {
-    background-color: var(--tertiary-bg-color);
-    margin-top: 12%;
-    margin-bottom: 5%;
 }
 .login {
-    text-align: center;
-    background-color: var(--tertiary-bg-color);
-    height: 100%;
-}
-form {
-    display: flexbox;
-}
-/* Pagina upFile */
-#upFile-container {
-    background-color: var(--tertiary-bg-color);
-    margin-top: 12%;
-    margin-bottom: 5%;
-}
-.upFile {
-    text-align: center;
-    background-color: var(--tertiary-bg-color);
-    height: 100%;
-}
-form {
-    display: flexbox;
-}
-
-
-
-
-
-/* dashboard */
-
-
-/* Estilo para centrar el contenido */
-.container {
-    display: flex;
+    margin: auto;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .card {
-    max-width: 500px;
-    margin-top: 20px;
-  }
-  
-  /* Estilo para la imagen del post */
-  .card-img-top {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  /* Estilo para los botones de acción */
-  .card-body button {
-    margin-right: 10px;
-  }
-  
-  /* Estilo para el formulario de comentarios */
-  .card-body form {
-    margin-top: 10px;
-  }
-  
-  /* Estilo para los comentarios */
-  .list-group-item {
-    border: none;
-    background-color: transparent;
-  }
-  
-  /* Estilo para los comentarios */
-  .list-group-item:not(:last-child) {
-    margin-bottom: 5px;
-  }
-  
+    display: flex;
+}
+.register-form {
+    width: 100%;
+    height: 89vh;
+    color: #ffffff;
+    margin: auto;
+    text-align: center;
+    padding: 50px;
+}
+.register {
+    margin: auto;
+    justify-content: center;
+    display: flex;
+}
+.bloqu-register {
+    padding-top: 100px;
+}
+.avatar {
+    border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+    height: 70px;
+    width: 70px;
+
+}
+.icono-avatar {
+    display: flex;
+    text-align: center;
+}
+.av {
+    display: flex;
+    justify-content: left;
+}
+.ed {
+    display: block;
+    margin: auto;
+}

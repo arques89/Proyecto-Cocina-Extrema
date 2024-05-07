@@ -1,21 +1,23 @@
-from flask import Flask, request, jsonify, url_for, Blueprint, current_app, session
+from flask import Flask, request, jsonify, url_for, Blueprint, current_app, session, render_template
 from models import db, User, Chef
 from werkzeug.exceptions import HTTPException
 from flask_bcrypt import Bcrypt
 from flask_session import Session
-import bcrypt
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
+import bcrypt
+from flask_mail import Message , Mail
+
 bcrypt = Bcrypt()
 
+mail = Mail()
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
 api = Blueprint('api', __name__)
-
 
 from datetime import timedelta
 delta = timedelta(
@@ -41,6 +43,44 @@ class APIException(HTTPException):
         super().__init__(message, payload)
         if status_code is not None:
             self.code = status_code
+
+
+
+
+# mailtrap
+
+# Ruta para enviar un correo electrónico de prueba
+@api.route('/confirm_account')
+def confirm_account():
+    # Crear un mensaje de correo electrónico
+    msg = Message('Confirma tu Cuenta', 
+    sender='from@example.com', 
+    recipients=['to@example.com'])
+
+    # Renderizar una plantilla HTML para el cuerpo del correo electrónico
+    msg.html = render_template('confirm_account.html', 
+    username='Usuario de ejemplo')
+    # msg.body = "Hey Paul, sending you this email from my Flask app, lmk if it works."
+
+    # Enviar el correo electrónico
+    mail.send(msg)
+    return 'Correo electrónico enviado correctamente!'
+
+@api.route('/forgot_password')
+def forgot_password():
+    # Crear un mensaje de correo electrónico
+    msg = Message('Restablecer tu Contraseña', 
+    sender='from@example.com', 
+    recipients=['to@example.com'])
+
+    # Renderizar una plantilla HTML para el cuerpo del correo electrónico
+    msg.html = render_template('forgot_password.html', 
+    username='Usuario de ejemplo')
+    # msg.body = "Hey Paul, sending you this email from my Flask app, lmk if it works."
+
+    # Enviar el correo electrónico
+    mail.send(msg)
+    return 'Correo electrónico enviado correctamente!'
 
 # Login
 
@@ -97,8 +137,7 @@ def register_user():
         return jsonify({"error" : "User already exists"}), 409
     
     hashed_password = bcrypt.generate_password_hash(password)
-    print(hashed_password)
-    print(User(password))
+
     new_user = User(email=email , password=hashed_password , name=body['name'], surname=body['surname'], is_active=True, is_admin=False)
     db.session.add(new_user)
     db.session.commit()
