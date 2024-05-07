@@ -1,54 +1,39 @@
-import { useState } from 'react';
+import { useState, useContext } from "react";
+import { Context } from "../../store/appContext"; // Importa el contexto
 import { inputLogin } from "./mocks";
-import config from '../../../config';
 import { Navigate } from "react-router-dom";
+import  { Toaster } from 'react-hot-toast';
 
 export const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [token, setToken] = useState('');
+  const { actions, store } = useContext(Context); // Obtén las acciones y el estado del contexto
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    if (name === 'email') setEmail(value);
-    if (name === 'password') setPassword(value);
+    if (name === "email") setEmail(value);
+    if (name === "password") setPassword(value);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const formData = {
-      email: email,
-      password: password,
-    };
-
-    try {
-      const response = await fetch(`${config.hostname}/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
-      });
-
-      if (!response.ok) {
-        const responseData = await response.json();
-        console.error(responseData.Error); // Maneja el error de alguna manera en tu aplicación
-        return;
-      }
-
-      const responseData = await response.json();
-      console.log("Inicio de sesión exitoso:", setToken(responseData));
-      // Aquí podrías hacer algo con la respuesta del servidor, como redirigir al usuario a otra página.
-    } catch (error) {
-      console.error("Error al enviar formulario:", error);
-    }
+    actions.login(email, password); // Llama a la acción de inicio de sesión
   };
 
   const renderInputLogin = () => {
-    return inputLogin.map(item => (
+    return inputLogin.map((item) => (
       <div key={item.id}>
-        <label htmlFor={item.htmlFor}>{item.label}</label><br />
-        <input type={item.type} name={item.name} placeholder={item.placeholder} required onChange={handleInputChange} />
+        <label htmlFor={item.htmlFor}>{item.label}</label>
+        <br />
+        <input
+          type={item.type}
+          name={item.name}
+          placeholder={item.placeholder}
+          required
+          onChange={handleInputChange}
+        />
         <br />
       </div>
     ));
@@ -56,24 +41,36 @@ export const Login = () => {
 
   return (
     <>
-    {token == null ? (
-        <>
-        <div className="container" id="login-container">
-        <div className="content mt-5">
-        <div className="login">
-        <h2>Login</h2>
-        <form onSubmit={handleSubmit}>
-        {renderInputLogin()}
-        <br />
-        <button type="submit">Entrar</button>
-        </form>
+      {store.token === null ? (
+        <div className="login-container">
+          <div className="video-login">
+            <video className="video" loop autoPlay muted>
+              <source
+                src="https://res.cloudinary.com/dztgp8g6w/video/upload/v1714975087/6822612-hd_1080_2048_25fps_dp32fa.mp4"
+                type="video/mp4"
+              />
+            </video>
+          </div>
+          <div className="login-form">
+            <div className="content mt-5">
+                <h2>Login</h2>
+              <div className="login">
+                <form onSubmit={handleSubmit}>
+                  {renderInputLogin()}
+                  <br />
+                  <button type="submit">Entrar</button>
+                </form>
+              </div>
+              <Toaster
+            position="top-center"
+            reverseOrder={false}
+            />
+            </div>
+          </div>
         </div>
-        </div>
-        </div>
-        </>
-    ) : (
-        <Navigate to="/upFile" />
-    )}
+      ) : (
+        <Navigate to="/dashboard" />
+      )}
     </>
-    );
+  );
 };
