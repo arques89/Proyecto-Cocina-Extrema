@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { CardPerson } from "../components/cardPerson"
+
+import { useContext } from "react";
+import { Context } from "../store/appContext";
 import config from "../../config";
 
 export const Concursantes = () => {
 
   const [users, setUsers] = useState([]);
-
+  const {  store } = useContext(Context);
+  console.log(store.token)
   useEffect(() => {
 
     fetch(`${config.hostname}/concursantes`, {
