@@ -1,29 +1,27 @@
-import { useState, useContext } from "react";
-import { Context } from "../../store/appContext"; // Importa el contexto
-import { inputLogin } from "./mocks";
-import { Navigate } from "react-router-dom";
+import { useContext, useState } from "react";
 import { Toaster } from "react-hot-toast";
+import { Navigate } from "react-router-dom";
+import { InputForgotPassword } from "./mocks";
+import { Context } from "../../store/appContext";
 
-export const Login = () => {
-  const { actions, store } = useContext(Context); // Obtén las acciones y el estado del contexto
+export const ForgotPassword = () => { // Cambia el nombre de la función a ForgotPassword
+  const { actions, store } = useContext(Context);
 
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     if (name === "email") setEmail(value);
-    if (name === "password") setPassword(value);
   };
-
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    actions.login(email, password); // Llama a la acción de inicio de sesión
+    actions.forgotPassword(email);
   };
 
-  const renderInputLogin = () => {
-    return inputLogin.map((item) => (
+  const renderInputForgotPassword = () => {
+    return InputForgotPassword.map((item) => (
       <div key={item.id}>
         <label htmlFor={item.htmlFor}>{item.label}</label>
         <br />
@@ -38,9 +36,10 @@ export const Login = () => {
       </div>
     ));
   };
+
   return (
     <>
-      {store.token === null && store.is_active === false  ? (
+      {store.token === null && store.is_active === false ? (
         <div className="login-container">
           <div className="video-login">
             <video className="video" loop autoPlay muted>
@@ -52,12 +51,12 @@ export const Login = () => {
           </div>
           <div className="login-form">
             <div className="content mt-5">
-              <h2>Login</h2>
+              <h2>Olvide contraseña</h2>
               <div className="login">
                 <form onSubmit={handleSubmit}>
-                  {renderInputLogin()}
+                  {renderInputForgotPassword()}
                   <br />
-                  <button type="submit">Entrar</button>
+                  <button type="submit">Enviar correo</button>
                 </form>
               </div>
               <Toaster position="top-center" reverseOrder={false} />
@@ -70,3 +69,4 @@ export const Login = () => {
     </>
   );
 };
+

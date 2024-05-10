@@ -1,27 +1,45 @@
-import Avatar from "react-avatar"
-import './index.css'
+import Avatar from "react-avatar";
+import "./index.css";
+import { Navigate } from "react-router-dom";
+import { useContext } from "react";
+import { Context } from "../../store/appContext"; // Importa el contexto
 
 export const Dashboard = () => {
+  const { store } = useContext(Context); // Obtén las acciones y el estado del contexto
   return (
     <>
-
-<div className="container-fluid d-flex flex-column bg-white p-0">
-  <div className="row m-0">
-    <div id="dashboard" className="col-2 vh-100 p-5 d-flex align-item-center justify-content-center text-center">
-      <div className="">
-    <Avatar name="Javier Arques" color="#000000" fgColor="#FFFFFF" round={true} size="70px"/>
-      <h4>Inicio</h4>
-      <h4>Perfil</h4>
-      <h4>Configuracion</h4>
-      <h4>Perfil</h4>
-    </div>
-      </div>
-    <div id="dashboa" className="col-10 vh-100">Columna 2</div>
-  </div>
-</div>
-</>
-  )
-}
+      {store.token === null ? (
+        <Navigate to="/login" />
+      ) : (
+        <div className="container-fluid d-flex flex-column bg-white p-0">
+          <div className="row m-0">
+            <div
+              id="dashboard"
+              className="col-2 vh-100 p-5 d-flex align-item-center justify-content-center text-center"
+            >
+              <div className="">
+                <Avatar
+                  name="Javier Arques"
+                  color="#000000"
+                  fgColor="#FFFFFF"
+                  round={true}
+                  size="70px"
+                />
+                <h4>Inicio</h4>
+                <h4>Perfil</h4>
+                <h4>Configuracion</h4>
+                <h4>Perfil</h4>
+              </div>
+            </div>
+            <div id="dashboa" className="col-10 vh-100">
+              Columna 2
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
 
 // <div>
 //   <div className="container mt-5">
